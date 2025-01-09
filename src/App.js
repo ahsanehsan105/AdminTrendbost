@@ -6,21 +6,36 @@ import PackageManagement from './pages/PackageManagement';
 import ProfileSettings from './pages/ProfileSettings';
 import OrdersDetail from './pages/OrdersDetail';
 import FinancialOverview from './pages/FinancialOverview';
+import Login from './pages/Login';
+import { AuthProvider, useAuth } from './Context/AuthContext';
 
 function App() {
+  // Wrap the entire app with AuthProvider
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/users-detail" exact element={<UsersDetail />} />
-          <Route path="/orders-detail" exact element={<OrdersDetail />} />
-          <Route path="/package-management" exact element={<PackageManagement />} />
-          <Route path="/financial-overview" exact element={<FinancialOverview />} />
-          <Route path="/profile-settings" exact element={<ProfileSettings />} />
-        </Routes>
+        <RoutesWrapper />
       </BrowserRouter>
-    </>
-  )
+    </AuthProvider>
+  );
 }
-  export default App;
+
+function RoutesWrapper() {
+  const { isAuthenticated } = useAuth();
+
+  return isAuthenticated ? (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/users-detail" element={<UsersDetail />} />
+      <Route path="/orders-detail" element={<OrdersDetail />} />
+      <Route path="/package-management" element={<PackageManagement />} />
+      <Route path="/financial-overview" element={<FinancialOverview />} />
+      <Route path="/profile-settings" element={<ProfileSettings />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  ) : (
+    <Login />
+  );
+}
+
+export default App;

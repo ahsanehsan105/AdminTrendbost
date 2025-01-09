@@ -10,16 +10,16 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const OrdersDetail = () => {
   const initialTransactions = [
-    { id: 1, userName: 'John Doe', date: '2025-01-01', transactionId: 'TXN001', packageName: 'Basic', packagePrice: '$10', status: 'Pending', paymentMethod: 'Crypto Wallet', platformName: 'Tiktok' },
-    { id: 2, userName: 'Jane Smith', date: '2025-01-02', transactionId: 'TXN002', packageName: 'Advanced', packagePrice: '$20', status: 'Processing', paymentMethod: 'Credit/Debit Card', platformName: 'Facebook' },
-    { id: 3, userName: 'Alice Johnson', date: '2025-01-03', transactionId: 'TXN003', packageName: 'Premium', packagePrice: '$30', status: 'Completed', paymentMethod: 'PayPal', platformName: 'Facebook' },
-    { id: 4, userName: 'Bob Brown', date: '2025-01-04', transactionId: 'TXN004', packageName: 'Customize', packagePrice: '$40', status: 'Pending', paymentMethod: 'Crypto Wallet', platformName: 'Twitter' },
-    { id: 5, userName: 'Charlie Davis', date: '2025-01-05', transactionId: 'TXN005', packageName: 'Basic', packagePrice: '$10', status: 'Processing', paymentMethod: 'Credit/Debit Card', platformName: 'Instagram' },
-    { id: 6, userName: 'Diana Evans', date: '2025-01-06', transactionId: 'TXN006', packageName: 'Advanced', packagePrice: '$20', status: 'Completed', paymentMethod: 'PayPal', platformName: 'TikTok Live' },
-    { id: 7, userName: 'Ethan Harris', date: '2025-01-07', transactionId: 'TXN007', packageName: 'Premium', packagePrice: '$30', status: 'Pending', paymentMethod: 'Crypto Wallet', platformName: 'Tiktok' },
-    { id: 8, userName: 'Fiona Green', date: '2025-01-08', transactionId: 'TXN008', packageName: 'Customize', packagePrice: '$40', status: 'Declined', paymentMethod: 'Credit/Debit Card', platformName: 'Instagram' },
-    { id: 9, userName: 'George King', date: '2025-01-09', transactionId: 'TXN009', packageName: 'Basic', packagePrice: '$10', status: 'Completed', paymentMethod: 'PayPal', platformName: 'Twitter' },
-    { id: 10, userName: 'Hannah Lee', date: '2025-01-10', transactionId: 'TXN010', packageName: 'Advanced', packagePrice: '$20', status: 'Pending', paymentMethod: 'Crypto Wallet', platformName: 'Tiktok' },
+    { id: 1, userName: 'John Doe', date: '2025-01-01', orderId: 'TXN001', platformName: 'Tiktok', features: 'Likes', url: 'https://example.com/post/1', status: 'Pending', topUser: 30 },
+    { id: 2, userName: 'Jane Smith', date: '2025-01-02', orderId: 'TXN002', platformName: 'Facebook', features: 'Comments', url: 'https://example.com/post/2', status: 'Processing', topUser: 50 },
+    { id: 3, userName: 'Alice Johnson', date: '2025-01-03', orderId: 'TXN003', platformName: 'Facebook', features: 'Followers', url: 'https://example.com/post/3', status: 'Completed', topUser: 70 },
+    { id: 4, userName: 'Bob Brown', date: '2025-01-04', orderId: 'TXN004', platformName: 'Twitter', features: 'Likes', url: 'https://example.com/post/4', status: 'Pending', topUser: 90 },
+    { id: 5, userName: 'Charlie Davis', date: '2025-01-05', orderId: 'TXN005', platformName: 'Instagram', features: 'Comments', url: 'https://example.com/post/5', status: 'Processing', topUser: 100 },
+    { id: 6, userName: 'Diana Evans', date: '2025-01-06', orderId: 'TXN006', platformName: 'TikTok Live', features: 'Audience', url: 'https://example.com/post/6', status: 'Completed', topUser: 30 },
+    { id: 7, userName: 'Ethan Harris', date: '2025-01-07', orderId: 'TXN007', platformName: 'Tiktok', features: 'Likes', url: 'https://example.com/post/7', status: 'Pending', topUser: 50 },
+    { id: 8, userName: 'Fiona Green', date: '2025-01-08', orderId: 'TXN008', platformName: 'Instagram', features: 'Followers', url: 'https://example.com/post/8', status: 'Declined', topUser: 70 },
+    { id: 9, userName: 'George King', date: '2025-01-09', orderId: 'TXN009', platformName: 'Twitter', features: 'Likes', url: 'https://example.com/post/9', status: 'Completed', topUser: 90 },
+    { id: 10, userName: 'Hannah Lee', date: '2025-01-10', orderId: 'TXN010', platformName: 'Tiktok', features: 'Comments', url: 'https://example.com/post/10', status: 'Pending', topUser: 100 },
   ];
 
   const [transactions, setTransactions] = useState(initialTransactions);
@@ -28,11 +28,11 @@ const OrdersDetail = () => {
   const [status, setStatus] = useState("");
   const [searchFilter, setSearchFilter] = useState({
     id: '',
-    transactionId: '',
-    packageName: '',
-    packagePrice: '',
+    orderId: '',
+    platformName: '',
+    features: '',
+    url: '',
     status: '',
-    paymentMethod: '',
   });
 
   const getStatusColor = (status) => {
@@ -80,57 +80,72 @@ const OrdersDetail = () => {
       ),
     },
     {
-      field: 'transactionId',
-      headerName: 'Transaction ID',
+      field: 'orderId',
+      headerName: 'Order ID',
       width: 140,
       renderHeader: () => (
         <div>
-          <Typography>Transaction ID</Typography>
+          <Typography>Order ID</Typography>
           <TextField
             variant="standard"
-            value={searchFilter.transactionId}
-            onChange={(e) => handleSearchChange('transactionId', e.target.value)}
+            value={searchFilter.orderId}
+            onChange={(e) => handleSearchChange('orderId', e.target.value)}
           />
         </div>
       ),
     },
     {
-      field: 'packageName',
-      headerName: 'Package Name',
+      field: 'platformName',
+      headerName: 'Platform Name',
       width: 140,
       renderHeader: () => (
         <div>
-          <Typography>Package Name</Typography>
+          <Typography>Platform Name</Typography>
           <TextField
             variant="standard"
-            value={searchFilter.packageName}
-            onChange={(e) => handleSearchChange('packageName', e.target.value)}
+            value={searchFilter.platformName}
+            onChange={(e) => handleSearchChange('platformName', e.target.value)}
           />
         </div>
       ),
     },
     {
-      field: 'packagePrice',
-      headerName: 'Package Price',
+      field: 'features',
+      headerName: 'Features',
       width: 140,
       renderHeader: () => (
         <div>
-          <Typography>Package Price</Typography>
+          <Typography>Features</Typography>
           <TextField
             variant="standard"
-            value={searchFilter.packagePrice}
-            onChange={(e) => handleSearchChange('packagePrice', e.target.value)}
+            value={searchFilter.features}
+            onChange={(e) => handleSearchChange('features', e.target.value)}
+          />
+        </div>
+      ),
+    },
+    {
+      field: 'url',
+      headerName: 'Post URL',
+      width: 300,
+      renderHeader: () => (
+        <div>
+          <Typography>Post URL</Typography>
+          <TextField
+            variant="standard"
+            value={searchFilter.url}
+            onChange={(e) => handleSearchChange('url', e.target.value)}
           />
         </div>
       ),
     },
     {
       field: 'status',
-      headerName: 'Package Status',
+      headerName: 'Order Status',
       width: 140,
       renderHeader: () => (
         <div>
-          <Typography>Package Status</Typography>
+          <Typography>Order Status</Typography>
           <TextField
             variant="standard"
             value={searchFilter.status}
@@ -150,21 +165,6 @@ const OrdersDetail = () => {
         >
           {params.value}
         </Box>
-      ),
-    },
-    {
-      field: 'paymentMethod',
-      headerName: 'Payment Method',
-      width: 180,
-      renderHeader: () => (
-        <div>
-          <Typography>Payment Method</Typography>
-          <TextField
-            variant="standard"
-            value={searchFilter.paymentMethod}
-            onChange={(e) => handleSearchChange('paymentMethod', e.target.value)}
-          />
-        </div>
       ),
     },
     {
@@ -215,10 +215,10 @@ const OrdersDetail = () => {
       <Box height={30} />
       <Box sx={{ display: 'flex' }}>
         <Sidebar />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3,width: "80vh" }}>
           {!showOrderDetails ? (
             <>
-              <Typography variant="h4" sx={{ marginTop: 3 }}>Orders Detail</Typography>
+              <Typography variant="h4" sx={{ marginTop: 3,fontWeight: 'bold' }}>Orders Detail</Typography>
               <Box sx={{ height: 600, width: '100%', marginTop: 3, overflowX: 'auto' }}>
                 <DataGrid
                   rows={filteredTransactions}
@@ -253,56 +253,56 @@ const OrdersDetail = () => {
                         <Grid item xs={6}>
                           <TextField
                             fullWidth
-                            label="Transaction ID"
-                            defaultValue={selectedOrder.transactionId}
-                            variant="standard"
-                            sx={{ marginBottom: 2 }}
-                            InputProps={{
-                              readOnly: true,
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            fullWidth
-                            label="Package Name"
-                            defaultValue={selectedOrder.packageName}
-                            variant="standard"
-                            sx={{ marginBottom: 2 }}
-                            InputProps={{
-                              readOnly: true,
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            fullWidth
-                            label="Package Price"
-                            defaultValue={selectedOrder.packagePrice}
-                            variant="standard"
-                            sx={{ marginBottom: 2 }}
-                            InputProps={{
-                              readOnly: true,
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            fullWidth
-                            label="Payment Method"
-                            defaultValue={selectedOrder.paymentMethod}
-                            variant="standard"
-                            sx={{ marginBottom: 2 }}
-                            InputProps={{
-                              readOnly: true,
-                            }}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            fullWidth
                             label="User Name"
                             defaultValue={selectedOrder.userName}
+                            variant="standard"
+                            sx={{ marginBottom: 2 }}
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            label="Order ID"
+                            defaultValue={selectedOrder.orderId}
+                            variant="standard"
+                            sx={{ marginBottom: 2 }}
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            label="Platform Name"
+                            defaultValue={selectedOrder.platformName}
+                            variant="standard"
+                            sx={{ marginBottom: 2 }}
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            label="Features"
+                            defaultValue={selectedOrder.features}
+                            variant="standard"
+                            sx={{ marginBottom: 2 }}
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            label="No #"
+                            defaultValue={selectedOrder.topUser}
                             variant="standard"
                             sx={{ marginBottom: 2 }}
                             InputProps={{
@@ -325,8 +325,20 @@ const OrdersDetail = () => {
                         <Grid item xs={6}>
                           <TextField
                             fullWidth
-                            label="Platform Name"
-                            defaultValue={selectedOrder.platformName}
+                            label="Post URL"
+                            defaultValue={selectedOrder.url}
+                            variant="standard"
+                            sx={{ marginBottom: 2 }}
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            label="Status"
+                            value={selectedOrder.status}
                             variant="standard"
                             sx={{ marginBottom: 2 }}
                             InputProps={{

@@ -15,6 +15,8 @@ import MuiAppBar from '@mui/material/AppBar';
 import { useAppStore } from '../appStore';
 import logo from './logo.png';
 import profile from './profile.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -25,6 +27,7 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const updateOpen = useAppStore((state) => state.updateOpen);
   const dopen = useAppStore((state) => state.dopen);
@@ -45,9 +48,10 @@ export default function Header() {
     handleMobileMenuClose();
   };
 
-  const handleLogout = () => {
-    // Add your logout logic here
-    console.log('Logged out');
+  const logoutHandler = () => {
+    localStorage.clear();
+    // Redirect to login page
+    navigate('/login');
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -71,7 +75,7 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={logoutHandler}>Logout</MenuItem>
     </Menu>
   );
 

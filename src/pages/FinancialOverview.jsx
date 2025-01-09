@@ -207,7 +207,7 @@ const FinancialOverview = () => {
       <Box height={30} />
       <Box sx={{ display: 'flex' }}>
         <Sidebar />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, width: '80%'  }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, width: '80%'}}>
           <h1>Financial Overview</h1>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginBottom: 3}}>
             {platformData.slice(0, 3).map((platform) => (

@@ -442,7 +442,7 @@ const UsersDetail = () => {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {!showUserDetails ? (
             <>
-              <Typography variant="h4" sx={{ marginBottom: 3, marginTop: 3 }}>
+              <Typography variant="h4" sx={{ marginBottom: 3, marginTop: 3,fontWeight: 'bold' }}>
                 User Details
               </Typography>
 
