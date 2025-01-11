@@ -110,7 +110,7 @@ export default function Sidebar() {
         <List>
           {[
             { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
-            { text: 'Users Detail', icon: <PersonOutlineIcon />, path: '/users-detail' },
+            { text: 'Users', icon: <PersonOutlineIcon />, path: '/users-detail' },
             { text: 'Orders Detail', icon: <DataSaverOffIcon />, path: '/orders-detail' },
             { text: 'Package Management', icon: <LocalPostOfficeIcon />, path: '/package-management' },
             { text: 'Financial Overview', icon: <AccountBalanceIcon />, path: '/financial-overview' },
