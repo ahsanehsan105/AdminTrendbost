@@ -227,7 +227,7 @@ const FinancialOverview = () => {
               </Box>
             ))}
           </Box>
-          <h2>Platform Package Detail</h2>
+          <h2>Financial Statement</h2>
           <Box sx={{ height: 400, overflowX: 'auto' }}>
             <Box sx={{ minWidth: 900 }}>
               <DataGrid
